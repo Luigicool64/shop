@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}}-Liste des Supports{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">Liste des compatibilités</h1>
+    <div class="text-center">
+        <div class="btn btn-lg btn-success mt-2">
+            <button  type="submit" class="btn" ><a href="{{path('app_addSupporter')}}">Ajouter un compatibilité</a></button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 bg-white p-4 m-0 text-primary">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="fw-bold text-primary">
+                            <th scope="col">Produit</th>
+                            <th scope="col">Support</th>
+                            <th scope="col">Prix</th>
+                            <th scope="col">Stockage</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                        {% for Supporter in Supporters %}
+                            <tr class="{{ cycle(['table-primary','table-secondary'], loop.index0) }}">
+                                <td>{{ Supporter.produit.nom | capitalize }}</td>
+                                <td>{{ Supporter.Support.nom | capitalize }}</td>
+                                <td>{{ Supporter.prix }}</td>
+                                <td>{{ Supporter.stock | capitalize }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

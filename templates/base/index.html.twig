@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}-Accueil
+{% endblock %}
+{% block body %}
+	{% for TypeProduit in TypeProduits %}
+		<h2>{{TypeProduit.typeProduit | capitalize}}</h2>
+		<div class="row row-cols-1 row-cols-md-6 g-6">
+			{% for Produit in TypeProduit.produits %}
+				<div class="col">
+					<div class="card" style="width: 16rem;">
+						{% for Photo in Produit.photos%}
+							{% if "jacket.jpg" == Photo.Nom %}
+								<a href="{{path("app_Produit",{'id':Produit.id})}}">
+									<img class="card-img-top" style="width: 16rem;" src="images_produit/{{Photo.chemin}}" alt="Photo du produit">
+									<a>
+									{% endif %}
+								{% endfor %}
+								<div class="card-body">
+									<h5 class="card-title">{{ Produit.nom }}</h5>
+									{% for Supporter in Produit.supporters  %}
+										<span class="badge rounded-pill text-bg-dark">{{ Supporter.support.nom }}</span>
+									{% endfor %}
+									{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+										{% if Produit in app.user.aimer %}
+											<a href="{{path("app_adorer",{'id':Produit.id})}}">
+												<i class="bi bi-suit-heart-fill"></i>
+											</a>
+										{% else %}
+											<a href="{{path("app_adorer",{'id':Produit.id})}}">
+												<i class="bi bi-suit-heart"></i>
+											</a>
+										{% endif %}
+									{% else %}
+										<a href="{{path("app_adorer",{'id':Produit.id})}}">
+											<i class="bi bi-suit-heart"></i>
+										</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% endfor %}
+		{% endblock %}

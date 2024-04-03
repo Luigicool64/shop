@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}-Profil
+{% endblock %}
+{% block body %}
+	<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">Profil</h1>
+	<tr class="fw-bold text-primary ">
+		<th scope="col">Email:
+		</th>
+		<td>{{app.user.Email}}</td>
+	</tr>
+	</br>
+	<tr class="fw-bold text-primary ">
+		<th scope="col">Prénom:</th>
+		<td>{{app.user.prenom}}</td>
+	</tr>
+	</br>
+	<tr class="fw-bold text-primary ">
+		<th scope="col">Nom:</th>
+		<td>{{app.user.nom}}</td>
+	</tr>
+	</br>
+	<tr class="fw-bold text-primary ">
+		<th scope="col">Telephone:</th>
+		<td>{{app.user.telephone}}</td>
+	</tr>
+	</br>
+	<tr>
+		<th scope="col">numéro:</th>
+		<td>{{app.user.numero}}</td>
+	</tr>
+	</br>
+	<tr>
+		<th scope="col">rue:</th>
+		<td>{{app.user.rue}}</td>
+	</tr>
+	</br>
+	<tr>
+		<th scope="col">ville:</th>
+		<td>{{app.user.ville}}</td>
+	</tr>
+	</br>
+	<tr>
+		<th scope="col">Code Postal:</th>
+		<td>{{app.user.codePostal}}</td>
+	</tr>
+	</br>
+	<tr>
+		<th scope="col">Pays:</th>
+	<td>{{app.user.Pays}}</td>
+	</tr>
+	</br>
+	<tr>
+		<th scope="col">Role:</th>
+		{% if "ROLE_ADMIN" in app.user.roles  %}
+			<td>Adminitrateur</td>
+		{% elseif "ROLE_MOD" in app.user.roles %}
+			<td>Moderation</td>
+		{% else %}
+			<td>Utilisateur</td>
+		{% endif %}
+	</tr>
+	</br> 
+	{% endblock %}
