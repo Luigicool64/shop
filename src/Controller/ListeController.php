@@ -12,17 +12,17 @@ use Doctrine\ORM\EntityManagerInterface;
 class ListeController extends AbstractController
 {
     #[Route('/private-adorer/{id}', name: 'app_adorer')]
-    public function adorer(Produit $Produit): Response
+    public function adorer(Produit $Produit,EntityManagerInterface $em): Response
     {
         if ($this->getUser()->addAimer()-contains($Produit)) {
-            $this -> getUser()->removeAimer($Produit);
+            $this->getUser()->removeAimer($Produit);
         }
         else {
-            $this ->getUser()->addAimer($Produit);
+            $this->getUser()->addAimer($Produit);
         }
-        return redirectToRoute('app_base', [
-            
-        ]);
+        $em->persist($this->getUser());
+        $em->flush();
+        return $this->redirectToRoute('app_base');
     }
 
 }
