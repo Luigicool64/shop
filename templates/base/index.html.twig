@@ -5,8 +5,9 @@
 {% endblock %}
 {% block body %}
 	<div class="row justify-content-center">
+		<h1 style ="text-align: center" class="text-info">bienvenue dans le troisième monde</h1>
 		{% for TypeProduit in TypeProduits %}
-			<h2>{{TypeProduit.typeProduit | capitalize}}
+			<h2 style="text-align: center">{{TypeProduit.typeProduit | capitalize}}
 				:
 				{{TypeProduit.produits | length }}
 				produit(s)</h2>

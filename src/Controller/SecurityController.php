@@ -37,7 +37,8 @@ class SecurityController extends AbstractController
             
         ]);
     }
-    #[Route('/liste_user', name: 'app_user')]
+    
+    #[Route('/private-liste_user', name: 'app_user')]
     public function liste_user(UserRepository $UserRepository): Response
     { 
         $Users = $UserRepository->findAll();
