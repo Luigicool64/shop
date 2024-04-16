@@ -31,9 +31,6 @@ class Produit
     #[ORM\OneToMany(targetEntity: Supporter::class, mappedBy: 'produit')]
     private Collection $supporters;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'aimer')]
-    private Collection $users;
-
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -137,33 +134,6 @@ class Produit
             if ($supporter->getProduits() === $this) {
                 $supporter->setProduits(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addAimer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeAimer($this);
         }
 
         return $this;

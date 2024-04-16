@@ -62,9 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $dateInscription = null;
 
-    #[ORM\ManyToMany(targetEntity: Produit::class, inversedBy: 'users')]
-    private Collection $aimer;
-
     public function __construct()
     {
         $this->aimer = new ArrayCollection();
@@ -249,32 +246,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateInscription(\DateTimeImmutable $dateInscription): static
     {
         $this->dateInscription = $dateInscription;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Produit>
-     */
-    public function getAimer(): Collection
-    {
-        return $this->aimer;
-    }
-
-    public function addAimer(Produit $aimer): static
-    {
-        
-        if (!$this->users->contains($aimer)) {
-            $this->users->add($aimer);
-            $aimer->addAimer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAimer(Produit $aimer): static
-    {
-        $this->aimer->removeElement($aimer);
 
         return $this;
     }

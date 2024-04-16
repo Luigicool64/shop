@@ -9,7 +9,7 @@
 		{% for Photo in produit.photos %}
 			<div class="carousel-inner">
 				<div class="carousel-item {{(loop.first) ? 'active' : '' }}">
-					<img src="images_produit/{ Photo.nom }" class="d-block w-100" alt="Photo du produit">
+					<img src="{{ Photo.chemin }}" class="d-block w-25" alt="Photo du produit">
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
