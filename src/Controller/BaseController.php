@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\UserRepository;
 use App\Repository\TypeProduitRepository;
+use App\Repository\SupportRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 
 
@@ -18,7 +20,8 @@ class BaseController extends AbstractController
     {
         $TypeProduits = $TypeProduitRepository->findBy(array(),array('typeProduit'=>'ASC'));
         return $this->render('base/index.html.twig', [
-            'TypeProduits'=> $TypeProduits
+            'TypeProduits' => $TypeProduits
         ]);
+        
     }
 }

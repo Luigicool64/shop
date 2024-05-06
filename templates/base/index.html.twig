@@ -4,20 +4,58 @@
 	{{parent()}}-Accueil
 {% endblock %}
 {% block body %}
+	<div id="carouselExampleIndicators" class="carousel slide">
+		<div class="carousel-indicators">
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+		</div>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="images-fixe/ace attoney.jpg" class="d-block w-100" alt="photo">
+				<div class="carousel-caption d-none d-md-block">
+					<h2 class="text-danger">Ace attoney</h2>
+					<p>"OBJECTION"</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img src="images-fixe/Zelda.jpg" class="d-block w-100" alt="photo">
+				<div class="carousel-caption d-none d-md-block">
+					<h2 class="text-danger">The legend of Zelda</h2>
+					<p>"it's dangerous to go alone! Take This."</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img src="images-fixe/Resident Evil.jpg" class="d-block w-100" alt="photo">
+				<div class="carousel-caption d-none d-md-block">
+					<h2 class="text-danger">Resident Evil</h2>
+					<p>"STAAAAARS !!!!"</p>
+				</div>
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Précedant</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">suivant</span>
+		</button>
+	</div>
 	<div class="row justify-content-center">
 		{% for TypeProduit in TypeProduits %}
 			<h2>{{TypeProduit.typeProduit | capitalize}}
 				:
 				{{TypeProduit.produits | length }}
 				produit(s)</h2>
-			<div class="row row-cols-1 row-cols-md-4 g-4">
+			<div class="row row-cols-1 row-cols-md-auto g-4">
 				{% for Produit in TypeProduit.produits %}
 					<div class="col">
 						<div class="card" style="width: 15rem;">
-							{% for Photo in Produit.photos%}
+							{% for Photo in Produit.photos %}
 								{% if "jacket.jpg" == Photo.Nom %}
 									<a href="{{path("app_Produit",{'id':Produit.id})}}">
-										<img class="card-img-top" style="width: 15rem,  align-items: center; border-radius:10px" src="{{Photo.chemin}}" alt="Photo du produit">
+										<img class="card-img-top" style="width: 15rem,  align-items: center; border-radius:10px" src="produit/{{Photo.chemin}}" alt="Photo du produit">
 										<a>
 										{% endif %}
 									{% endfor %}
@@ -26,26 +64,28 @@
 										{% for Supporter in Produit.supporters  %}
 											<span class="badge rounded-pill text-bg-dark">{{ Supporter.support.nom }}</span>
 										{% endfor %}
-										{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-											{% if Produit in app.user.aimer %}
-												<a href="{{path("app_adorer",{'id':Produit.id})}}">
-													<i class="bi bi-suit-heart-fill text-danger"></i>
-												</a>
-											{% else %}
-												<a href="{{path("app_adorer",{'id':Produit.id})}}">
-													<i class="bi bi-suit-heart text-danger"></i>
-												</a>
-											{% endif %}
-										{% else %}
-											<a href="{{path("app_adorer",{'id':Produit.id})}}">
-												<i class="bi bi-suit-heart text-danger"></i>
-											</a>
-										{% endif %}
+										{#}
+																																																		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+																																																			{% if Produit in app.user.aimer %}
+										produit/12																																										<a href="{{path("app_adorer",{'id':Produit.id})}}">
+																																																					<i class="bi bi-suit-heart-fill text-danger"></i>
+																																																				</a>
+																																																			{% else %}
+																																																				<a href="{{path("app_adorer",{'id':Produit.id})}}">
+																																																					<i class="bi bi-suit-heart text-danger"></i>
+																																																				</a>
+																																																			{% endif %}
+																																																		{% else %}
+																																																			<a href="{{path("app_adorer",{'id':Produit.id})}}">
+																																																				<i class="bi bi-suit-heart text-danger"></i>
+																		</a>
+																	{% endif %}
+																	{#}
 									</div>
 								</div>
 							</div>
 						{% endfor %}
 					</div>
 				{% endfor %}
-			</div>
-		{% endblock %}
+	{% endblock %}
+				
