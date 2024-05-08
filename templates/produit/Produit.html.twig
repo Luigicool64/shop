@@ -4,7 +4,7 @@
 	{{parent()}}-{{produit.nom}}
 {% endblock %}
 {% block body %}
-	<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">{{produit.nom}}</h1>
+	<h1 style="font-family: Brush Script MT; text-align:center;" >{{produit.nom}}</h1>
 	<div id="carouselExample" class="carousel slide">
 		{% for Photo in produit.photos %}
 			<div class="carousel-inner">
@@ -23,26 +23,29 @@
 		</button>
 	</div>
 	<br>
-	<div class="dropdown">
-		<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			description
-		</button>
-		<ul class="dropdown-menu">
-			<li>{{produit.description}}</li>
-		</ul>
-	</div>
-<br>
+			<h6 style="font-family: Brush Script MT;">description : {{produit.description}}</h6>
+	<br>
+
 	{% for Supporter in produit.supporters  %}
-
-		<span class="badge rounded-pill text-bg-dark">{{ Supporter.support.nom }}</span>
-		<h6>stock:
-			{% if 0 != Supporter.stock %}
-				{{ Supporter.stock }}
-			{% else %}
-				cet produit n'est plus dans nos Stockage
-			{% endif %}
-		</h6>
-		<p>{{Supporter.prix}}</p>
-
+	<div class="accordion" id="accordionExample">
+		<div class="accordion-item">
+    			<h2 class="accordion-header" style="font-family: Brush Script MT; text-align:center;">
+      				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        				{{ Supporter.support.nom }}
+      				</button>
+    			</h2>
+    		<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      			<div class="accordion-body">
+					<h6 style="font-family: Brush Script MT; text-align:center;">stock:
+						{% if 0 != Supporter.stock %}
+							{{ Supporter.stock }}
+						{% else %}
+							cet produit n'est plus dans nos Stockage
+						{% endif %}
+					</h6>
+				<p style="font-family: Brush Script MT; text-align:center;">{{Supporter.prix}}</p>
+     			</div>
+    		</div>
+		</div>
 	{% endfor %}
 {% endblock %}
