@@ -4,6 +4,8 @@
 	{{parent()}}-{{produit.nom}}
 {% endblock %}
 {% block body %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
 	<h1 style="font-family: Brush Script MT; text-align:center;" >{{produit.nom}}</h1>
 	<div id="carouselExample" class="carousel slide">
 		{% for Photo in produit.photos %}
@@ -25,7 +27,22 @@
 	<br>
 			<h6 style="font-family: Brush Script MT;">description : {{produit.description}}</h6>
 	<br>
-
+	<br>
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			{% if produit in app.user.aimer %}
+			<a href="{{path("app_adorer_detail",{'id':produit.id})}}">
+				<i class="bi bi-suit-heart-fill text-danger"></i>
+			</a>
+			{% else %}
+			<a href="{{path("app_adorer_detail",{'id':produit.id})}}">
+				<i class="bi bi-suit-heart text-danger"></i>
+			</a>
+			{% endif %}
+		{% else %}
+			<a href="{{path("app_adorer_detail",{'id':produit.id})}}">
+				<i class="bi bi-suit-heart text-danger"></i>
+			</a>
+		{% endif %}		
 	{% for Supporter in produit.supporters  %}
 	<div class="accordion" id="accordionExample">
 		<div class="accordion-item">
@@ -48,4 +65,6 @@
     		</div>
 		</div>
 	{% endfor %}
+	</div>
+	</div>
 {% endblock %}

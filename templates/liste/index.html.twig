@@ -1,20 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ListeController!{% endblock %}
+{% block title %}{{parent()}}- favoris{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/shop/src/Controller/ListeController.php</code></li>
-        <li>Your template at <code>/var/www/html/shop/templates/liste/index.html.twig</code></li>
-    </ul>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <h1 style="font-family: Brush Script MT; text-align:center;">votre liste Favoris</h1>
+        <div class="row row-cols-1 row-cols-md-auto g-4">
+            {% for Produit in app.user.aimer %}
+                <div class="col">
+						<div class="card h-100" style="width: 15rem; border-radius:10px;">
+                            {% for Photo in Produit.Photos %}
+							    {% if "jacket.jpg" == Photo.Nom %}
+                                <a href="{{path("app_Produit",{'id':Produit.id})}}">
+								    <img class="card-img-top" style="width: 15rem,  align-items: center; border-radius:10px" src="produit/{{Photo.chemin}}" alt="Photo du produit"> 
+						        </a>
+                                {% endif %}
+                            {% endfor %}
+                            <h5>{{ Produit.nom }}</h5>
+                                <span class="badge rounded-pill text-bg-dark" style="font-family: Brush Script MT">{{ Produit.TypeProduit.TypeProduit }}</span>
+                            <br>
+								{% if Produit in app.user.aimer %}
+								<a href="{{path("app_desadorer",{'id':Produit.id})}}">
+									<i class="bi bi-suit-heart-fill text-danger"></i>
+								</a>
+								{% endif %}
+								
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -4,6 +4,8 @@
 	{{parent()}}-Accueil
 {% endblock %}
 {% block body %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
 	<h1 style="font-family: Brush Script MT; text-align:center;">Bienvenue de Game-Eshop</h1>
 	<div id="carouselExampleIndicators" class="carousel slide">
 		<div class="carousel-indicators">
@@ -70,23 +72,22 @@
 										{% for Supporter in Produit.supporters  %}
 											<span class="badge rounded-pill text-bg-dark" style="font-family: Brush Script MT">{{ Supporter.support.nom }}</span>
 										{% endfor %}
-										{#}
-																																																		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-																																																			{% if Produit in app.user.aimer %}
-																																																				<a href="{{path("app_adorer",{'id':Produit.id})}}">
-																																																					<i class="bi bi-suit-heart-fill text-danger"></i>
-																																																				</a>
-																																																			{% else %}
-																																																				<a href="{{path("app_adorer",{'id':Produit.id})}}">
-																																																					<i class="bi bi-suit-heart text-danger"></i>
-																																																				</a>
-																																																			{% endif %}
-																																																		{% else %}
-																																																			<a href="{{path("app_adorer",{'id':Produit.id})}}">
-																																																				<i class="bi bi-suit-heart text-danger"></i>
-																		</a>
-																	{% endif %}
-																	{#}
+										<br>
+										{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+											{% if Produit in app.user.aimer %}
+											<a href="{{path("app_adorer_base",{'id':Produit.id})}}">
+												<i class="bi bi-suit-heart-fill text-danger"></i>
+											</a>
+											{% else %}
+											<a href="{{path("app_adorer_base",{'id':Produit.id})}}">
+												<i class="bi bi-suit-heart text-danger"></i>
+											</a>
+											{% endif %}
+										{% else %}
+											<a href="{{path("app_adorer_base",{'id':Produit.id})}}">
+												<i class="bi bi-suit-heart text-danger"></i>
+											</a>
+										{% endif %}							
 									</div>
 								</div>
 							</div>
@@ -98,12 +99,14 @@
 				<div class="row row-cols-1 row-cols-md-auto g-4">
 				{% for Support in Supports %}
 				<div class="col">
-				<a href="{{path("app_Support",{'id':Support.id})}}">
-				<div class="card" style="width: 15rem; border-radius:10px;">
-				<h5 class="card-title" style="text-align: center; font-family: Brush Script MT"  ">{{ Support.nom }}</h5>
+					<a href="{{path("app_Support",{'id':Support.id})}}">
+					<div class="card" style="width: 15rem; border-radius:10px;">
+				<h5 class="card-title" style="text-align: center; font-family: Brush Script MT">{{ Support.nom }}</h5>
 				</div>
-				</div>
-				{% endfor %}
-				</div>
-	{% endblock %}
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	</div>		
+{% endblock %}
 				
