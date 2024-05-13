@@ -6,15 +6,25 @@
 {% block body %}
 <div class="container-fluid">
     <div class="row justify-content-center">
-	<h1 style="font-family: Brush Script MT; text-align:center;" >{{produit.nom}}</h1>
+	<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold" style="font-family: Brush Script MT; text-align:center;" >{{produit.nom}}</h1>
 	<div id="carouselExample" class="carousel slide">
 		{% for Photo in produit.photos %}
+			{% if "video" == produit.nom %}
 			<div class="carousel-inner">
 				<div class="carousel-item {{(loop.first) ? 'active' : '' }}">
-					<img src="{{ Photo.chemin }}" class="d-block w-100" alt="Photo du produit">
+					<img src="{{ Photo.chemin }}" class="d-block w-500" alt="Photo du produit">
 				</div>
 			</div>
+			{% else %}
+			<div class="carousel-inner">
+				<div class="carousel-item {{(loop.first) ? 'active' : '' }}">
+					<iframe width="1200" height="630" src="{{ Photo.chemin }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+					</iframe>
+				</div>
+			</div>	
+			{% endif %}
 		{% endfor %}
+
 		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			<span class="visually-hidden">Précédant</span>
@@ -24,6 +34,12 @@
 			<span class="visually-hidden">Suivant</span>
 		</button>
 	</div>
+	{% for Photo in produit.photos %}
+		{% if "video" == produit.nom %}
+		
+		{% endif %}
+	{% endfor %}
+	
 	<br>
 			<h6 style="font-family: Brush Script MT;">description : {{produit.description}}</h6>
 	<br>
@@ -61,10 +77,15 @@
 						{% endif %}
 					</h6>
 				<p style="font-family: Brush Script MT; text-align:center;">{{Supporter.prix}}</p>
+				<div class="text-center">
+					<div class="btn btn-lg btn-success mt-2">
+						<a href="#"><button  type="submit" class="btn" ><i class="bi bi-bag-plus">Ajouter au panier</i></button></a>
+					</div>
+				</div>
      			</div>
     		</div>
 		</div>
 	{% endfor %}
 	</div>
-	</div>
+</div>
 {% endblock %}

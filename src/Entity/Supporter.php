@@ -27,9 +27,13 @@ class Supporter
     #[ORM\ManyToOne(inversedBy: 'supporters')]
     private ?Support $Support = null;
 
+    #[ORM\ManyToMany(targetEntity: Panier::class, mappedBy: 'Produit')]
+    private Collection $paniers;
+
     public function __construct()
     {
         $this->supports = new ArrayCollection();
+        $this->paniers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,6 +85,33 @@ class Supporter
     public function setSupport(?Support $Support): static
     {
         $this->Support = $Support;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPaniers(): Collection
+    {
+        return $this->paniers;
+    }
+
+    public function addPanier(Panier $panier): static
+    {
+        if (!$this->paniers->contains($panier)) {
+            $this->paniers->add($panier);
+            $panier->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): static
+    {
+        if ($this->paniers->removeElement($panier)) {
+            $panier->removeProduit($this);
+        }
 
         return $this;
     }

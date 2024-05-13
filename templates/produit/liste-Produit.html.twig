@@ -3,10 +3,10 @@
 {% block title %}{{parent()}}-Liste des Produits{% endblock %}
 
 {% block body %}
-    <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">Liste des Produits</h1>
+    <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold" style="font-family: Brush Script MT; text-align:center;">Liste des Produits</h1>
     <div class="text-center">
         <div class="btn btn-lg btn-success mt-2">
-            <button  type="submit" class="btn" ><a href="{{path('app_addProduit')}}">Ajouter un produit</a></button>
+            <a href="{{path('app_addProduit')}}"><button  type="submit" class="btn" >Ajouter un produit</button></a>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -25,7 +25,9 @@
                             <tr class="{{ cycle(['table-primary','table-secondary'], loop.index0) }}">
                                 <td>{{ Produit.nom | capitalize }}</td>
                                 <td>{{ Produit.description | capitalize }}</td>
-                                <td>{{ Produit.TypeProduit.TypeProduit | capitalize }}</td> 
+                                <td>{{ Produit.TypeProduit.TypeProduit | capitalize }}</td>
+                                <td><a href="{{path("app_modifier_produit",{'id':Produit.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
+                                <td><a href="{{path("app_supprimer_produit",{'id':Produit.id})}}"><i class="bi bi-trash-fill text-dark"></i></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

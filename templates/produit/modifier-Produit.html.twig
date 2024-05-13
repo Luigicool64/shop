@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}}- modifier un produit{% endblock %}
+
+{% block body %}
+<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold" style="font-family: Brush Script MT; text-align:center;">modifier un Produit</h1>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-10 text-primary">
+            {{form(form)}}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

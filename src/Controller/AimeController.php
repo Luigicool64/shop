@@ -9,13 +9,13 @@ use App\Entity\Produit;
 use Doctrine\ORM\EntityManagerInterface;
 
 
-class ListeController extends AbstractController
+class AimeController extends AbstractController
 {
     #[Route('/favoris', name: 'favoris')]
     public function index():Response
     {
         
-        return $this->render('liste/index.html.twig', [
+        return $this->render('aimer/index.html.twig', [
             
         ]);
     }

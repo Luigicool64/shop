@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Support;
 use App\Form\AddSupportType;
+use App\Form\ModifierSupportType;
 use App\Repository\SupportRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,6 +42,34 @@ class SupportController extends AbstractController
         ]);
     }
 
+    #[Route('/private-modifier-Support/{id}', name: 'app_modifierSupport')]
+    public function modifierSupport(Request $request,Support $Support,EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(ModifierSupportType::class, $Support);
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+            if ($form->isSubmitted()&&$form->isValid()){
+            $em->persist($Support);
+            $em->flush();
+            $this->addFlash('notice','Produit modifiée');
+            return $this->redirectToRoute('app_listeSupport');
+            }
+        }
+        return $this->render('produit/modifier-Produit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/private-supprimer-Support/{id}', name: 'app_supprimerSupport')]
+    public function supprimerSupport(Request $request,Support $Support,EntityManagerInterface $em): Response
+    {
+    if($Support!=null){
+        $em->remove($Support);
+        $em->flush();
+        $this->addFlash('notice','Support supprimée');
+    }
+    return $this->redirectToRoute('app_listeSupport');
+    }
     
     
 }

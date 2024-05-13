@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Form\AddProduitType;
+use App\Form\ModifierProduitType;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,4 +51,34 @@ class ProduitController extends AbstractController
         ]);
     }
 
+    #[Route('/modifier-produit/{id}', name: 'app_modifier_produit')]
+    public function modifierProduit(Request $request,Produit $Produit,EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(ModifierProduitType::class, $Produit);
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+            if ($form->isSubmitted()&&$form->isValid()){
+            $em->persist($Produit);
+            $em->flush();
+            $this->addFlash('notice','Produit modifiée');
+            return $this->redirectToRoute('app_listeProduit');
+            }
+        }
+        return $this->render('produit/modifier-Produit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/supprimer-produit/{id}', name: 'app_supprimer_produit')]
+    public function supprimerProduit(Request $request,Produit $Produit,EntityManagerInterface $em): Response
+    {
+    if($Produit!=null){
+        $em->remove($Produit);
+        $em->flush();
+        $this->addFlash('notice','Produit supprimée');
+    }
+    return $this->redirectToRoute('app_listeProduit');
+    }
+
 }
+

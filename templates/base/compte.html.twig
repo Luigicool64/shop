@@ -4,7 +4,7 @@
 	{{parent()}}-Profil
 {% endblock %}
 {% block body %}
-	<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">Profil</h1>
+	<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold" style="font-family: Brush Script MT; text-align:center;">Profil</h1>
 	<div class="row justify-content-center">
 	<tr class="fw-bold text-primary ">
 		<th scope="col">Email:
@@ -63,5 +63,6 @@
 		{% endif %}
 	</tr>
 	</br>
+	<td><a href="{{path("app_modifierSupporter",{'id':app.user.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
 	</div>
 	{% endblock %}

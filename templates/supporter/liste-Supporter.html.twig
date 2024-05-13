@@ -6,7 +6,7 @@
     <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">Liste des compatibilités</h1>
     <div class="text-center">
         <div class="btn btn-lg btn-success mt-2">
-            <button  type="submit" class="btn" ><a href="{{path('app_addSupporter')}}">Ajouter un compatibilité</a></button>
+            <a href="{{path('app_addSupporter')}}"><button  type="submit" class="btn" >Ajouter un compatibilité</button></a>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -28,6 +28,8 @@
                                 <td>{{ Supporter.Support.nom | capitalize }}</td>
                                 <td>{{ Supporter.prix }}</td>
                                 <td>{{ Supporter.stock | capitalize }}</td>
+                                <td><a href="{{path("app_modifierSupporter",{'id':Supporter.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
+                                <td><a href="{{path("app_supprimerSupporter",{'id':Supporter.id})}}"><i class="bi bi-trash-fill text-dark"></i></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -3,10 +3,10 @@
 {% block title %}{{parent()}}-Liste des Supports{% endblock %}
 
 {% block body %}
-    <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">Liste des Supports</h1>
+   <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold" style="font-family: Brush Script MT; text-align:center;">Liste des Supports</h1>
     <div class="text-center">
         <div class="btn btn-lg btn-success mt-2">
-            <button  type="submit" class="btn" ><a href="{{path('app_AddSupport')}}">Ajouter un Support</a></button>
+            <a href="{{path('app_AddSupport')}}"><button  type="submit" class="btn" >Ajouter un Support</button></a>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -22,6 +22,8 @@
                         {% for Support in Supports |sort((a, b) => a.nom <=> b.nom) %}
                             <tr class="{{ cycle(['table-primary','table-secondary'], loop.index0) }}">
                                 <td>{{ Support.nom | capitalize }}</td>
+                                <td><a href="{{path("app_modifierSupport",{'id':Support.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
+                                <td><a href="{{path("app_supprimerSupport",{'id':Support.id})}}"><i class="bi bi-trash-fill text-dark"></i></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

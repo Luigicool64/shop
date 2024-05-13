@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\UserRepository;
+use App\Entity\User;
+use App\Form\RoleType;
 
 class SecurityController extends AbstractController
 {
@@ -45,4 +47,23 @@ class SecurityController extends AbstractController
             'Users' => $Users
         ]);
     }
+    
+    #[Route('/private-modifier-role/{id}', name: 'app_modifierRoles')]
+    public function modifierRole(Request $request, User $user,EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(RoleType::class, $user);
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+            if ($form->isSubmitted()&&$form->isValid()){
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('notice','Role modifiée');
+            return $this->redirectToRoute('app_user');
+            }
+        }
+        return $this->render('base/modifier-Roles.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    
 }
