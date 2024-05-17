@@ -1,21 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}}- recherche{% endblock %}
+{% block title %}{{parent()}}- recherche {{q}}{% endblock %}
 
 {% block body %}
+<h2 class="text-center text-primary mt-4 pt-4 fw-bold" style="font-family:Helvetica, sans-serif; text-align:center;"> Résultat de la recherche de {{q}}</h2>
+{% if produit | length == 0 %}
+<h3 class="text-center text-primary mt-4 pt-4 fw-bold" style="font-family:Helvetica, sans-serif; text-align:center;"> désole votre rechercher n'a pas de résultat<h3>
+{% else %}
 <div class="row justify-content-center">
-{#}
-    {{form_start(form)}}
-
-    {{form_end(form)}}
-{#}
     <div class="col-10 text-primary">
-
         <div class="row row-cols-1 row-cols-md-auto g-4">
             {% for produits in produit %}
                 <div class="col">
 					<div class="card h-100" style="width: 15rem; border-radius:10px;">
-                        
                         {% for photo in produits.photos %}
 							    {% if "jacket.jpg" == photo.Nom %}
                                 <a href="{{path("app_Produit",{'id':produits.id})}}">
@@ -23,13 +20,13 @@
 						        </a>
                                 {% endif %}
                         {% endfor %}
-                        
-                            <h5>{{ produits.nom }}</h5>
-                            <span class="badge rounded-pill text-bg-dark" style="font-family: Brush Script MT">{{ produits.TypeProduit.TypeProduit }}</span>
+                        <h5>{{ produits.nom }}</h5>
+                    <span class="badge rounded-pill text-bg-info"style="font-family:Helvetica, sans-serif; text-align:center;">{{ produits.TypeProduit.TypeProduit }}</span>
                 </div>
             </div> 
             {% endfor %}  
         </div> 
 	</div>
 </div>
+{% endif %}
 {% endblock %}

@@ -21,13 +21,13 @@ class ProduitRepository extends ServiceEntityRepository
         parent::__construct($registry, Produit::class);
     }
 
-    /**
-     * Récupére les produits via une rechercher
-     * @return Produit[]
-     */
-    public function findSearch(): array
+    public function findBySearchQuery(string $query)
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('m')
+            ->where('m.nom Like :query OR m.description LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**

@@ -23,7 +23,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/private-listeProduit', name: 'app_listeProduit')]
+    #[Route('/mod-listeProduit', name: 'app_listeProduit')]
     public function listeProduit(ProduitRepository $ProduitRepository): Response
     {
         $Produits = $ProduitRepository->findAll();
@@ -32,7 +32,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/private-addProduit', name: 'app_addProduit')]
+    #[Route('/mod-addProduit', name: 'app_addProduit')]
     public function addProduit(Request $request, EntityManagerInterface $em): Response
     {
         $produit = new Produit();
@@ -51,7 +51,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/modifier-produit/{id}', name: 'app_modifier_produit')]
+    #[Route('/mod-modifier-produit/{id}', name: 'app_modifier_produit')]
     public function modifierProduit(Request $request,Produit $Produit,EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ModifierProduitType::class, $Produit);
@@ -69,7 +69,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/supprimer-produit/{id}', name: 'app_supprimer_produit')]
+    #[Route('/mod-supprimer-produit/{id}', name: 'app_supprimer_produit')]
     public function supprimerProduit(Request $request,Produit $Produit,EntityManagerInterface $em): Response
     {
     if($Produit!=null){

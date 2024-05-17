@@ -10,32 +10,32 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr class="fw-bold text-primary">
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">Email</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">date d'inscription</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">Prénom</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">Nom</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">telephone</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">Numero</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">Rue</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">Code Postal</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">Ville</th>
-                                    <th scope="col" style="font-family: Brush Script MT; text-align:center;">Pays</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Email</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">date d'inscription</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Prénom</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Nom</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">telephone</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Numero</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Rue</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Code Postal</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Ville</th>
+                                    <th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Pays</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for user in Users |sort((a, b) => a.prenom <=> b.prenom) %}
                                     <tr class="{{ cycle(['table-primary','table-secondary'], loop.index0) }}">
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.email | lower }}</td>
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.dateInscription | date("d-m-Y à H:i:s") }}</td>
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.prenom | capitalize }}</td>
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.nom | capitalize }}</td>
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.telephone | capitalize}}
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.numero | capitalize }}</td>
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.rue | capitalize }}</td>
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.codePostal | capitalize }}</td>
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.ville | capitalize }}</td>
-                                        <td style="font-family: Brush Script MT; text-align:center;">{{ user.pays | capitalize }}</td>
-                                        <td><a href="{{path("app_modifierRoles",{'id':user.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.email | lower }}</td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.dateInscription | date("d-m-Y à H:i:s") }}</td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.prenom | capitalize }}</td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.nom | capitalize }}</td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.telephone | capitalize}}
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.numero | capitalize }}</td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.rue | capitalize }}</td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.codePostal | capitalize }}</td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.ville | capitalize }}</td>
+                                        <td style="font-family:Helvetica, sans-serif; text-align:center;">{{ user.pays | capitalize }}</td>
+                                        <td text-align:center;><a href="{{path("app_modifierRoles",{'id':user.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

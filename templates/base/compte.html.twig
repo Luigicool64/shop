@@ -4,65 +4,66 @@
 	{{parent()}}-Profil
 {% endblock %}
 {% block body %}
-	<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold" style="font-family: Brush Script MT; text-align:center;">Profil</h1>
+	<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold" style="font-family:Helvetica, sans-serif; text-align:center;">Profil</h1>
 	<div class="row justify-content-center">
 	<tr class="fw-bold text-primary ">
 		<th scope="col">Email:
 		</th>
-		<td>{{app.user.Email}}</td>
+		<td style="font-family:Helvetica, sans-serif; text-align:center;">{{app.user.email}}</td>
+
 	</tr>
 	</br>
 	<tr class="fw-bold text-primary ">
-		<th scope="col">Prénom:</th>
-		<td>{{app.user.prenom}}</td>
+		<th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Prénom:</th>
+		<td style="font-family:Helvetica, sans-serif; text-align:center;">{{app.user.prenom}}</td>
 	</tr>
 	</br>
 	<tr class="fw-bold text-primary ">
-		<th scope="col">Nom:</th>
-		<td>{{app.user.nom}}</td>
+		<th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Nom:</th>
+		<td style="font-family:Helvetica, sans-serif; text-align:center;">{{app.user.nom}}</td>
 	</tr>
 	</br>
 	<tr class="fw-bold text-primary ">
-		<th scope="col">Telephone:</th>
-		<td>{{app.user.telephone}}</td>
+		<th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Telephone:</th>
+		<td style="font-family:Helvetica, sans-serif; text-align:center;">{{app.user.telephone}}</td>
 	</tr>
 	</br>
 	<tr>
-		<th scope="col">numéro:</th>
-		<td>{{app.user.numero}}</td>
+		<th scope="col" style="Helvetica, sans-serif; text-align:center;">numéro:</th>
+		<td style="font-family:Helvetica, sans-serif; text-align:center;">{{app.user.numero}}</td>
 	</tr>
 	</br>
 	<tr>
-		<th scope="col">rue:</th>
-		<td>{{app.user.rue}}</td>
+		<th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">rue:</th>
+		<td style"font-family:Helvetica, sans-serif; text-align:center;">{{app.user.rue}}</td>
 	</tr>
 	</br>
 	<tr>
-		<th scope="col">ville:</th>
-		<td>{{app.user.ville}}</td>
+		<th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">ville:</th>
+		<td style="font-family:Helvetica, sans-serif; text-align:center;">{{app.user.ville}}</td>
 	</tr>
 	</br>
 	<tr>
-		<th scope="col">Code Postal:</th>
-		<td>{{app.user.codePostal}}</td>
+		<th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Code Postal:</th>
+		<td style="font-family:Helvetica, sans-serif; text-align:center;">{{app.user.codePostal}}</td>
 	</tr>
 	</br>
 	<tr>
-		<th scope="col">Pays:</th>
-	<td>{{app.user.Pays}}</td>
+		<th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Pays:</th>
+	<td style="font-family:Helvetica, sans-serif; text-align:center;">{{app.user.Pays}}</td>
 	</tr>
 	</br>
 	<tr>
-		<th scope="col">Role:</th>
+		<th scope="col" style="font-family:Helvetica, sans-serif; text-align:center;">Role:</th>
 		{% if "ROLE_ADMIN" in app.user.roles  %}
-			<td>Adminitrateur</td>
+			<td style="Helvetica, sans-serif; text-align:center;">Adminitrateur</td>
 		{% elseif "ROLE_MOD" in app.user.roles %}
-			<td>Moderation</td>
+			<td style="Helvetica, sans-serif; text-align:center;">Moderation</td>
 		{% else %}
-			<td>Utilisateur</td>
+			<td style="Helvetica, sans-serif; text-align:center;">Utilisateur</td>
 		{% endif %}
 	</tr>
 	</br>
-	<td><a href="{{path("app_modifierSupporter",{'id':app.user.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
+	<td><a href="{{path("app_modifier_User",{'id':app.user.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
 	</div>
 	{% endblock %}

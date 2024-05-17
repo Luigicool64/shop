@@ -6,7 +6,7 @@
 <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold"></h1>
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <h1>{{Support.nom | capitalize}} : {{ Support.supporters | length }} produit(s)</h1>
+        <h1 style="font-family:Helvetica, sans-serif; text-align:center;">{{Support.nom | capitalize}} : {{ Support.supporters | length }} produit(s)</h1>
             <div class="col-10 text-primary">
                 <div class="row row-cols-1 row-cols-md-auto g-4">
                 {% for Supporter in Support.supporters %}
@@ -20,7 +20,7 @@
                                 {% endif %}
                             {% endfor %}
                             <h5>{{ Supporter.produit.nom }}</h5>
-                                <span class="badge rounded-pill text-bg-dark" style="font-family: Brush Script MT">{{ Supporter.produit.TypeProduit.TypeProduit }}</span>
+                                <span class="badge rounded-pill text-bg-info" style="font-family:Helvetica, sans-serif; text-align:center;">{{ Supporter.produit.TypeProduit.TypeProduit }}</span>
                             <br>
 							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 								{% if Supporter.produit in app.user.aimer %}

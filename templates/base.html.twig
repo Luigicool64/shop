@@ -6,11 +6,10 @@
 			{% block title %}Game-Eshop
 			{% endblock %}
 		</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<link rel="icon" href="data:image/svg+,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22></text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 		{% block stylesheets %}
 			<link href="https://bootswatch.com/5/lux/bootstrap.min.css" rel="stylesheet">
-			<link href="src/css/style.css" rel="stylesheet">
-			
 		{% endblock %}
 		{% block javascripts %}
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -20,7 +19,7 @@
 	<body>
 		<nav class="navbar navbar-expand-lg bg-body-tertiary  " data-bs-theme="dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{{path('app_base')}}">
+				<a class="navbar-brand" href="{{path('app_base')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
 					Game-eshop
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,59 +29,64 @@
 					<ul class="navbar-nav me-auto">
 						{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 							<li class="nav-item">
-								<a class="nav-link active" href="{{path('app_login')}}">se connecter</a>
+								<a class="nav-link active" href="{{path('app_login')}}" style="font-family:Helvetica, sans-serif; text-align:center;">se connecter</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="{{path('app_register')}}">s'inscrit</a>
+								<a class="nav-link" href="{{path('app_register')}}" style="font-family:Helvetica, sans-serif; text-align:center;;">s'inscrit</a>
 							</li>
 						{% else %}
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-circle"></i> {{app.user.nom}} {{app.user.prenom}}</a>
 								<div class="dropdown-menu">
-									<a class="dropdown-item" href='{{path('app_profil')}}'>profil</a>
-									<a class="dropdown-item" href='{{path('app_logout')}}'>se deconnecter</a>
-									<a class="dropdown-item" href="favoris">
+									<a class="dropdown-item" href='{{path('app_profil')}}' style="font-family:Helvetica, sans-serif; text-align:center;"><i class="bi bi-person-circle"></i>Profil</a>
+									<a class="dropdown-item" href='{{path('app_logout')}}' style="font-family:Helvetica, sans-serif; text-align:center;"><i class="bi bi-person-fill-x"></i>Se deconnecter</a>
+									<a class="dropdown-item" href='{{path('app_favoris')}}'>
 										<i class="bi bi-suit-heart-fill text-danger"></i>
 									</a>
-									<a class="dropdown-item" href="#">
-										<i class="bi bi-bag-plus-fill text-info"></i>
+									<a class="dropdown-item" href='{{path('app_panier')}}' >
+										<i class="bi bi-bag-plus-fill text-success"></i>
 									</a>
 								</div>
 							</li>
 							{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
-								<li class="nav-item">
-									<a class="nav-link" href="{{path('app_user')}}">Utilisateurs</a>
-								</li>
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Produits</a>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="{{path('app_listeProduit')}}">Liste des Produits</a>
-										<a class="dropdown-item" href="{{path('app_addProduit')}}">ajouter un Produit</a>
+										<a class="dropdown-item" href="{{path('app_listeProduit')}}" style="font-family:Helvetica, sans-serif; text-align:center;">Liste des Produits</a>
+										<a class="dropdown-item" href="{{path('app_addProduit')}}" style="font-family:Helvetica, sans-serif; text-align:center;">Ajouter un Produit</a>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="{{path('app_listeSupport')}}">
-											Liste des Supports</a>
-										<a class="dropdown-item" href="{{path('app_AddSupport')}}">
-											ajouter un Support</a>
+											<a class="dropdown-item" href="{{path('app_listeSupport')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
+												Liste des Supports</a>
+											<a class="dropdown-item" href="{{path('app_AddSupport')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
+											Ajouter un Support</a>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="{{path('app_listeSupporter')}}">
+										<a class="dropdown-item" href="{{path('app_listeSupporter')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
 											Liste des Compatibilités</a>
-										<a class="dropdown-item" href="{{path('app_addSupporter')}}">
-											associer un Compatibilité</a>
+										<a class="dropdown-item" href="{{path('app_addSupporter')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
+											Associer un Compatibilité</a>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="{{path('app_photo')}}">
-											associer une photo</a>
+										<a class="dropdown-item" href="{{path('app_video')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
+											Associer une photo</a>
+										<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="{{path('app_user')}}" style="font-family:Helvetica, sans-serif; text-align:center;"> Liste des utilisateurs</a>
 									</div>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href=""></a>
 								</li>
 							{% endif %}
 						{% endif %}
 					</div>
 				</div>
+				<form class="d-flex" action="{{path('app_rechercher')}}" method="get">
+					<input class="form-control me-2" type="search" name="q" style="font-family:Helvetica, sans-serif; text-align:center;" placeholder="recherchez-vous" aria-label="Search" required></input>
+					<button class="btn btn-outline-success" type="search" type="submit" style="font-family:Helvetica, sans-serif; text-align:center;"> rechercher </button>
+				</form>
 			</nav>
 			{% for message in app.flashes('notice') %}
-				<h2 class="alert alert-warning text-center mt-4 mb-4" role="alert">
+				<h2 class="alert alert-warning text-center mt-4 mb-4" style="font-family:Helvetica, sans-serif; text-align:center;" role="alert">
+					{{ message }}
+				</h2>
+			{% endfor %}
+			{% for message in app.flashes('favoris') %}
+				<h2 class="alert alert-danger text-center mt-4 mb-4" style="font-family:Helvetica, sans-serif; text-align:center;" role="alert">
 					{{ message }}
 				</h2>
 			{% endfor %}

@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class AimeController extends AbstractController
 {
-    #[Route('/favoris', name: 'favoris')]
+    #[Route('/private-favoris', name: 'app_favoris')]
     public function index():Response
     {
         
@@ -25,9 +25,10 @@ class AimeController extends AbstractController
     {
         
         $this->getUser()->removeAimer($Produit);
+        $this->addFlash('favoris', 'Produit supprimer de vos favoris');
         $em->persist($this->getUser());
         $em->flush();
-        return $this->redirectToRoute('favoris');
+        return $this->redirectToRoute('app_favoris');
     }
 
     #[Route('/private-adorer-base/{id}', name: 'app_adorer_base')]
@@ -35,13 +36,15 @@ class AimeController extends AbstractController
     {
         if ($this->getUser()->getAimer()->contains($Produit)) {
             $this->getUser()->removeAimer($Produit);
+            $this->addFlash('favoris', 'Produit supprimer de vos favoris');
         }
         else {
             $this->getUser()->addAimer($Produit);
+            $this->addFlash('favoris', 'Produit ajouter de vos favoris');
         }
         $em->persist($this->getUser());
         $em->flush();
-        return $this->redirectToRoute('app_base');
+        return $this->redirectToRoute('app_favoris');
     }
 
     #[Route('/private-adorer-support/{id}', name: 'app_adorer_support')]
@@ -49,13 +52,15 @@ class AimeController extends AbstractController
     {
         if ($this->getUser()->getAimer()->contains($Produit)) {
             $this->getUser()->removeAimer($Produit);
+            $this->addFlash('favoris', 'Produit supprimer de vos favoris');
         }
         else {
             $this->getUser()->addAimer($Produit);
+            $this->addFlash('favoris', 'Produit ajouter de vos favoris');
         }
         $em->persist($this->getUser());
         $em->flush();
-        return $this->redirectToRoute('app_Support');
+        return $this->redirectToRoute('app_favoris');
     }
 
     #[Route('/private-adorer-detail/{id}', name: 'app_adorer_detail')]
@@ -63,13 +68,15 @@ class AimeController extends AbstractController
     {
         if ($this->getUser()->getAimer()->contains($Produit)) {
             $this->getUser()->removeAimer($Produit);
+            $this->addFlash('favoris', 'Produit supprimer de vos favoris');
         }
         else {
             $this->getUser()->addAimer($Produit);
+            $this->addFlash('favoris', 'Produit ajouter de vos favoris');
         }
         $em->persist($this->getUser());
         $em->flush();
-        return $this->redirectToRoute('app_Support');
+        return $this->redirectToRoute('app_favoris');
     }
 
 }

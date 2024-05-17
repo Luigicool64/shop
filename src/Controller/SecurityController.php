@@ -9,6 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\UserRepository;
 use App\Entity\User;
 use App\Form\RoleType;
+use App\Form\UserType;
 
 class SecurityController extends AbstractController
 {
@@ -32,6 +33,7 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+    
     #[Route('/Profil', name: 'app_profil')]
     public function Profil(UserRepository $UserRepository): Response
     { 
@@ -39,7 +41,28 @@ class SecurityController extends AbstractController
             
         ]);
     }
-    #[Route('/liste_user', name: 'app_user')]
+
+    #[Route('/private-modifier_profil/{id}', name: 'app_modifier_User')]
+    public function modifierProfil(Request $request,User $User,EntityManagerInterface $em): Response
+    {   
+        $form = $this->createForm(UserType::class, $user);
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+            if ($form->isSubmitted()&&$form->isValid()){
+                $em->persist($user);
+                $em->flush();
+                $this->addFlash('notice','Role modifiée');   
+                return $this->redirectToRoute('app_user');
+        } 
+        return $this->render('security/user.html.twig', [
+            'form' => $form->createView()
+        ]);
+        
+        }
+       
+    }
+
+    #[Route('/mod-liste_user', name: 'app_user')]
     public function liste_user(UserRepository $UserRepository): Response
     { 
         $Users = $UserRepository->findAll();
@@ -48,17 +71,17 @@ class SecurityController extends AbstractController
         ]);
     }
     
-    #[Route('/private-modifier-role/{id}', name: 'app_modifierRoles')]
+    #[Route('/mod-modifier-role/{id}', name: 'app_modifierRoles')]
     public function modifierRole(Request $request, User $user,EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(RoleType::class, $user);
+        $form = $this->createForm(ModifierProduitType::class, $user);
         if($request->isMethod('POST')){
             $form->handleRequest($request);
             if ($form->isSubmitted()&&$form->isValid()){
             $em->persist($user);
             $em->flush();
-            $this->addFlash('notice','Role modifiée');
-            return $this->redirectToRoute('app_user');
+            $this->addFlash('notice','Produit modifiée');
+            return $this->redirectToRoute('app_listeProduit');
             }
         }
         return $this->render('base/modifier-Roles.html.twig', [
