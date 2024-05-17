@@ -80,5 +80,4 @@ class ProduitController extends AbstractController
     return $this->redirectToRoute('app_listeProduit');
     }
 
-}
-
+    }

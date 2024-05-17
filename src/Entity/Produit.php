@@ -42,7 +42,6 @@ class Produit
         $this->photos = new ArrayCollection();
         $this->supporters = new ArrayCollection();
         $this->users = new ArrayCollection();
-        $this->ajouters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,36 +167,6 @@ class Produit
     {
         if ($this->users->removeElement($user)) {
             $user->removeAimer($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ajouter>
-     */
-    public function getAjouters(): Collection
-    {
-        return $this->ajouters;
-    }
-
-    public function addAjouter(Ajouter $ajouter): static
-    {
-        if (!$this->ajouters->contains($ajouter)) {
-            $this->ajouters->add($ajouter);
-            $ajouter->setProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAjouter(Ajouter $ajouter): static
-    {
-        if ($this->ajouters->removeElement($ajouter)) {
-            // set the owning side to null (unless already changed)
-            if ($ajouter->getProduit() === $this) {
-                $ajouter->setProduit(null);
-            }
         }
 
         return $this;

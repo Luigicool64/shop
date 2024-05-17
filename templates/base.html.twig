@@ -32,65 +32,47 @@
 								<a class="nav-link active" href="{{path('app_login')}}" style="font-family:Helvetica, sans-serif; text-align:center;">se connecter</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="{{path('app_register')}}" style="font-family:Helvetica, sans-serif; text-align:center;;">s'inscrit</a>
+								<a class="nav-link" href="{{path('app_register')}}">s'inscrit</a>
 							</li>
 						{% else %}
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-circle"></i> {{app.user.nom}} {{app.user.prenom}}</a>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href='{{path('app_profil')}}' style="font-family:Helvetica, sans-serif; text-align:center;"><i class="bi bi-person-circle"></i>Profil</a>
-									<a class="dropdown-item" href='{{path('app_logout')}}' style="font-family:Helvetica, sans-serif; text-align:center;"><i class="bi bi-person-fill-x"></i>Se deconnecter</a>
-									<a class="dropdown-item" href='{{path('app_favoris')}}'>
-										<i class="bi bi-suit-heart-fill text-danger"></i>
-									</a>
-									<a class="dropdown-item" href='{{path('app_panier')}}' >
-										<i class="bi bi-bag-plus-fill text-success"></i>
-									</a>
-								</div>
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('app_profil')}}">Compte</a>
 							</li>
 							{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+								<li class="nav-item">
+									<a class="nav-link" href="{{path('app_user')}}">Utilisateurs</a>
+								</li>
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Produits</a>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="{{path('app_listeProduit')}}" style="font-family:Helvetica, sans-serif; text-align:center;">Liste des Produits</a>
-										<a class="dropdown-item" href="{{path('app_addProduit')}}" style="font-family:Helvetica, sans-serif; text-align:center;">Ajouter un Produit</a>
+										<a class="dropdown-item" href="{{path('app_listeProduit')}}">Liste des Produits</a>
+										<a class="dropdown-item" href="{{path('app_addProduit')}}">ajouter un Produit</a>
 										<div class="dropdown-divider"></div>
-											<a class="dropdown-item" href="{{path('app_listeSupport')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
-												Liste des Supports</a>
-											<a class="dropdown-item" href="{{path('app_AddSupport')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
-											Ajouter un Support</a>
+											<a class="dropdown-item" href="{{path('app_listeSupport')}}"> Liste des Supports</a>
+											<a class="dropdown-item" href="{{path('app_AddSupport')}}"> ajouter un Support</a>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="{{path('app_listeSupporter')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
-											Liste des Compatibilités</a>
-										<a class="dropdown-item" href="{{path('app_addSupporter')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
-											Associer un Compatibilité</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="{{path('app_video')}}" style="font-family:Helvetica, sans-serif; text-align:center;">
-											Associer une photo</a>
-										<div class="dropdown-divider"></div>
-											<a class="dropdown-item" href="{{path('app_user')}}" style="font-family:Helvetica, sans-serif; text-align:center;"> Liste des utilisateurs</a>
+											<a class="dropdown-item" href="{{path('app_listeSupporter')}}"> Liste des Compatibilités</a>
+											<a class="dropdown-item" href="{{path('app_addSupporter')}}">associer un Compatibilité</a>
 									</div>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href=""></a>
 								</li>
 							{% endif %}
 						{% endif %}
-					</div>
-				</div>
-				<form class="d-flex" action="{{path('app_rechercher')}}" method="get">
+						<form class="d-flex" action="{{path('app_rechercher')}}" method="get">
 					<input class="form-control me-2" type="search" name="q" style="font-family:Helvetica, sans-serif; text-align:center;" placeholder="recherchez-vous" aria-label="Search" required></input>
 					<button class="btn btn-outline-success" type="search" type="submit" style="font-family:Helvetica, sans-serif; text-align:center;"> rechercher </button>
 				</form>
+					</div>
+				</div>
 			</nav>
 			{% for message in app.flashes('notice') %}
-				<h2 class="alert alert-warning text-center mt-4 mb-4" style="font-family:Helvetica, sans-serif; text-align:center;" role="alert">
-					{{ message }}
-				</h2>
-			{% endfor %}
-			{% for message in app.flashes('favoris') %}
-				<h2 class="alert alert-danger text-center mt-4 mb-4" style="font-family:Helvetica, sans-serif; text-align:center;" role="alert">
+				<h2 class="alert alert-warning text-center mt-4 mb-4" role="alert">
 					{{ message }}
 				</h2>
 			{% endfor %}
 			{% block body %}{% endblock %}
 		</body>
-	
+	</body>
 </html>

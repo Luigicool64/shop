@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
     #[Route('/Profil', name: 'app_profil')]
     public function Profil(UserRepository $UserRepository): Response
     { 
-        return $this->render('base/compte.html.twig', [
+        return $this->render('security/compte.html.twig', [
             
         ]);
     }
@@ -89,4 +89,14 @@ class SecurityController extends AbstractController
         ]);
     }
     
+
+
+    #[Route('/private-listeSupporter', name: 'app_listeSupporter')]
+    public function listeSupporter(SupporterRepository $SupporterRepository): Response
+    {
+        $Supporters = $SupporterRepository->findAll();
+       return $this->render('produit/liste-Supporter.html.twig', [
+          'Supporters' => $Supporters
+       ]);
+    }
 }

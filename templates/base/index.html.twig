@@ -4,6 +4,7 @@
 	{{parent()}}-Accueil
 {% endblock %}
 {% block body %}
+
 <div class="container-fluid">
     <div class="row justify-content-center">
 	<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold" style="font-family:Helvetica, sans-serif; text-align:center;">Bienvenue de Game-Eshop</h1>
@@ -46,18 +47,16 @@
 		</button>
 	</div>
 	<div class="text-center">
-		
 	</div>
-	<div class="row justify-content-center">
-	
-		{% for TypeProduit in TypeProduits %}
+	<div class="row justify-content-centre pt-5">
+		<div>
+			{% for TypeProduit in TypeProduits %}
 			<h2 style="font-family:Helvetica, sans-serif; text-align:center;">{{TypeProduit.typeProduit | capitalize}}
 				:
 				{{TypeProduit.produits | length }}
 				produit(s)</h2>
 			<div class="row row-cols-1 row-cols-md-5 g-5">
 				{% for Produit in TypeProduit.produits %}
-				
 					<div class="col">
 						<div class="card h-100 border border-danger-subtle" style="width: 15rem; border-radius:10px;">
 							{% for Photo in Produit.photos %}
@@ -154,10 +153,9 @@
                         </div>
                     </div>
             {% endfor %}
-			
-			{% endif %}	
+			{% endif %}
 			</div>
 		</div>
 	</div>		
 {% endblock %}
-				
+

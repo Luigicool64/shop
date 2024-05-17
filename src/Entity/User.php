@@ -267,11 +267,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function addAimer(Produit $aimer): static
     {
+
         
         if (!$this->aimer->contains($aimer)) {
             $this->aimer->add($aimer);
-            
         }
+
 
         return $this;
     }
