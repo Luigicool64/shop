@@ -20,9 +20,10 @@ class Panier
     #[ORM\OneToMany(targetEntity: Ajouter::class, mappedBy: 'panier')]
     private Collection $ajouters;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?User $User = null;
+    #[ORM\OneToOne(mappedBy: 'Panier', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
 
+    
     
 
     public function __construct()
@@ -67,14 +68,26 @@ class Panier
 
     public function getUser(): ?User
     {
-        return $this->User;
+        return $this->user;
     }
 
-    public function setUser(?User $User): static
+    public function setUser(?User $user): static
     {
-        $this->User = $User;
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setPanier(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getPanier() !== $this) {
+            $user->setPanier($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
+
+    
 
 }

@@ -49,6 +49,7 @@
 		
 	</div>
 	<div class="row justify-content-center">
+	
 		{% for TypeProduit in TypeProduits %}
 			<h2 style="font-family:Helvetica, sans-serif; text-align:center;">{{TypeProduit.typeProduit | capitalize}}
 				:
@@ -75,41 +76,46 @@
 										
 										{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 											{% if Produit in app.user.aimer %}
-											<a href="{{path("app_adorer_base",{'id':Produit.id})}}">
-												<i class="bi bi-suit-heart-fill text-danger"></i>
+											<a class="btn btn-danger" style="border-radius:10px;" href="{{path("app_adorer_base",{'id':Produit.id})}}">
+												<i class="bi bi-suit-heart-fill "></i>
 											</a>
 											{% else %}
-											<a href="{{path("app_adorer_base",{'id':Produit.id})}}">
-												<i class="bi bi-suit-heart text-danger"></i>
+											<a class="btn btn-danger" style="border-radius:10px;" href="{{path("app_adorer_base",{'id':Produit.id})}}">
+												<i class="bi bi-suit-heart "></i>
 											</a>
 											{% endif %}
 										{% else %}
-											<a href="{{path("app_adorer_base",{'id':Produit.id})}}">
-												<i class="bi bi-suit-heart text-danger"></i>
+											<a class="btn btn-danger" style="border-radius:10px;" href="{{path("app_adorer_base",{'id':Produit.id})}}">
+												<i class="bi bi-suit-heart "></i>
 											</a>
 										{% endif %}	
+										{#}
 										{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-											{% if Produit in app.user.panier %}
-											
-											<a href="{{path("app_ajoutpanierbase",{'id':Produit.id})}}">
-												<i class="bi bi-bag-check-fill text-success"></i>
-											</a>
+											{% set verif = false %}
+											{% for panier in app.user.panier.ajouter %}
+												{% if panier.produit == Produit %}
+													{% set verif = true %}
+												{% endif %}
+											{% endfor %}
+											{% if verif %}
+											<a class="btn btn-warning" href={{path('#',{'id':Produit.id})}}" role="button" >
+												<i class="bi bi-bag-plus-fill"></i>
 											{% else %}
-											<a href="{{path("app_ajoutpanierbase",{'id':Produit.id})}}">
-												<i class="bi bi-bag-plus-fill text-success"></i>
-											</a>
+											<a class="btn btn-success" href={{path('#',{'id':Produit.id})}}" role="button" >
+												<i class="bi bi-bag-plus"></i>
 											{% endif %}
 										{% else %}
-											<a href="{{path("app_ajoutpanierbase",{'id':Produit.id})}}">
-												<i class="bi bi-bag-plus-fill text-success"></i>
-											</a>
-										{% endif %}						
+										<a class="btn btn-success" href={{path('#',{'id':Produit.id})}}" role="button" >
+												<i class="bi bi-bag-plus-fill"></i>
+										{% endif  %}	
+										{#}	
 									</div>
 								</div>
 							</div>
 						{% endfor %}
 					</div>
 				{% endfor %}
+				<br>
 				<h2 style="font-family:Helvetica, sans-serif; text-align:center;">Support</h2>
 				<br>
 				<div class="row row-cols-1 row-cols-md-auto g-4">
@@ -120,6 +126,36 @@
 					</div>
 				</div>
 				{% endfor %}
+				</div>
+				</br>
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<h2 style="font-family:Helvetica, sans-serif; text-align:center;">favoris</h2>
+				<br>
+				<div class="row row-cols-1 row-cols-md-5 g-4">
+				{% for Produit in app.user.aimer %}
+                <div class="col">
+						<div class="card h-100" style="width: 15rem; border-radius:10px;">
+                            {% for Photo in Produit.Photos %}
+							    {% if "jacket.jpg" == Photo.Nom %}
+                                <a href="{{path("app_Produit",{'id':Produit.id})}}">
+								    <img class="card-img-top" style="width: 15rem,  align-items: center; border-radius:10px" src="produit/{{Photo.chemin}}" alt="Photo du produit"> 
+						        </a>
+                                {% endif %}
+                            {% endfor %}
+                            <h5 style="font-family:Helvetica, sans-serif; text-align:center;">{{ Produit.nom }}</h5>
+                                <span class="badge rounded-pill text-bg-dark" style="font-family:Helvetica, sans-serif; text-align:center;">{{ Produit.TypeProduit.TypeProduit }}</span>
+                            <br>
+								{% if Produit in app.user.aimer %}
+								<a class="btn btn-danger" href="{{path("app_desadorer",{'id':Produit.id})}}">
+									<i class="bi bi-suit-heart-fill " styte="text-align:center;"></i>
+								</a>
+								{% endif %}
+								
+                        </div>
+                    </div>
+            {% endfor %}
+			
+			{% endif %}	
 			</div>
 		</div>
 	</div>		

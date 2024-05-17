@@ -12,12 +12,28 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PanierController extends AbstractController
 {
+    #[Route('/private-supppanier', name: 'app_panier')]
+    public function supppanier(EntityManagerInterface $em,Produit $Produit): Response
+    {
+        foreach ($this->getUser()->getPanier()->getAjouter() as $ajouter){
+            if ($this->getUser()->getPanier()->getAjouter()->contains($ajouter)){
+                if ($this->getProduit() == $Produit)
+                    $this->getUser()->getPanier()->removeAjouter($ajouter);
+            }
+        }
+        $em->persist($this->getUser());
+        $em->flush();
+        $this->addFlash('notice',$jeu->getNom().'supprimé du panier');
+        return $this->redirectToRoute('app_base');
+    }
+
     #[Route('/private-ajoutpanier/{id}', name: 'app_ajoutpanier')]
     public function ajoutpanier(Produit $Produit, EntityManagerInterface $em): Response
     {
         if ($Produit!=null){
             if($this->getUser()->getPanier() == null){
                 $panier= new Panier();
+                $this->getUser()->setPanier($panier);
             } else {
                 $panier=$this->getUser()->getPanier();
             }
@@ -26,13 +42,12 @@ class PanierController extends AbstractController
             $ajouter->setPanier($panier);
             $ajouter->setProduit($Produit);
             $panier->addAjouter($ajouter);
-            $this->getUser()->setpanier();
             $em->persist($panier);
-            $em->persist($Produit);
+            $em->persist($this->getUser());
             $em->persist($ajouter);
             $em->flush();
         }
-        return $this->redirectToRoute('app_panier');
+        return $this->redirectToRoute('app_Produit',['id' =>$Produit->getId()]);
     }
 
     #[Route('/private-ajoutpaniersupport/{id}', name: 'app_ajoutpaniersupport')]
@@ -41,6 +56,8 @@ class PanierController extends AbstractController
         if ($Produit!=null){
             if($this->getUser()->getPanier() == null){
                 $panier= new Panier();
+                $this->getUser()->setPanier($panier);
+                
             } else {
                 $panier=$this->getUser()->getPanier();
             }
@@ -49,9 +66,8 @@ class PanierController extends AbstractController
             $ajouter->setPanier($panier);
             $ajouter->setProduit($Produit);
             $panier->addAjouter($ajouter);
-            $this->getUser()->setpanier();
             $em->persist($panier);
-            $em->persist($Produit);
+            $em->persist($this->getUser());
             $em->persist($ajouter);
             $em->flush();
         }
@@ -64,6 +80,7 @@ class PanierController extends AbstractController
         if ($Produit!=null){
             if($this->getUser()->getPanier() == null){
                 $panier= new Panier();
+                $this->getUser()->setPanier($panier);
             } else {
                 $panier=$this->getUser()->getPanier();
             }
@@ -72,9 +89,8 @@ class PanierController extends AbstractController
             $ajouter->setPanier($panier);
             $ajouter->setProduit($Produit);
             $panier->addAjouter($ajouter);
-            $this->getUser()->setpanier();
             $em->persist($panier);
-            $em->persist($Produit);
+            $em->persist($this->getUser());
             $em->persist($ajouter);
             $em->flush();
         }
